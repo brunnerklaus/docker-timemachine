@@ -1,0 +1,25 @@
+version: "3.7"
+
+volumes:
+  timemachine_data: {}
+
+services:
+  timemachine:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: timemachine
+    image: timemachine:latest
+    ports:
+      - "548:548/tcp"
+      - "636:636/tcp"
+    environment:
+      AFP_LOGIN: ${AFP_LOGIN}
+      AFP_PASSWORD: ${AFP_PASSWORD}
+      AFP_NAME: ${AFP_NAME}
+      AFP_SIZE_LIMIT: ${AFP_SIZE_LIMIT}
+      PUID: ${PUID:-1000}
+      PGID: ${PGID:-1000}
+    volumes:
+       - timemachine_data:/timemachine
+    restart: unless-stopped
