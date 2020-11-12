@@ -2,46 +2,34 @@
 A docker container to compile the lastest version of Netatalk in order to run a Time Machine server.
 
 ## Running on ARM / RPi
-If you want to use this on an ARM-Device (like the Raspberry Pi), you have two options:
+If you want to use this on an ARM-Device (like the Raspberry Pi) create .env file:
 
-- Get the precompiled image (latest compilation on 29-03-2018):
+- Copy .env.example to .env:
     ```
-    $ docker run -h timemachine --name timemachine --restart=unless-stopped -d -v /external_volume:/timemachine -it -p 548:548 -p 636:636 odarriba/timemachine-rpi
+    $ mv .env.example .env
     ```
+and add user and password
+
 - Build the image directly on your device:
     ```
-    $ docker build -t timemachine-rpi:latest -f Dockerfile .
-    $ docker run -h timemachine --name timemachine --restart=unless-stopped -d -v /external_volume:/timemachine -it -p 548:548 -p 636:636 timemachine-rpi
+    $ docker-compose build .
+    $ docker-compose up -d
     ```
 
-## Installation
+## Optional
 
-### Step 1 - Start the Server
-
-To download the docker container and execute it, simply run:
-
-```
-$ docker run -h timemachine --name timemachine --restart=unless-stopped -d -v /external_volume:/timemachine -it -p 548:548 -p 636:636 --ulimit nofile=65536:65536 odarriba/timemachine
-```
-
-Replace `external_volume` with a local path where you want to store your data.
-
-As the image has been started using the `--restart=always` flag, it will start when the computers boots up.
-
-
-
-### Step 2 - Add a User
+### Step 1 - Add a User
 
 To add a user, run:
 
 ```
-$ docker exec timemachine add-account USERNAME PASSWORD VOL_NAME VOL_ROOT [VOL_SIZE_MB]
+$ docker exec docker-timemachine add-account USERNAME PASSWORD VOL_NAME VOL_ROOT [VOL_SIZE_MB]
 ```
 
 Or, if you want to add a user with a specific UID/GID, use the following format
 
 ```
-$ docker exec timemachine add-account -i 1000 -g 1000 USERNAME PASSWORD VOL_NAME VOL_ROOT [VOL_SIZE_MB]
+$ docker exec docker-timemachine add-account -i 1000 -g 1000 USERNAME PASSWORD VOL_NAME VOL_ROOT [VOL_SIZE_MB]
 ```
 
 But take care that:
@@ -52,7 +40,7 @@ But take care that:
 Now you have a docker instance running `netatalk`.
 
 
-### Step 3 - Enable Auto Discovery
+### Step 2 - Enable Auto Discovery
 
 Avahi daemon is commonly used to help your computers to find the services provided by a server.
 
@@ -66,7 +54,7 @@ Avahi isn't built into this Docker image because, due to Docker's networking lim
 * Restart Avahi's daemon: `sudo /etc/init.d/avahi-daemon restart`
 
 
-### Step 4 - Configure Your Firewall
+### Step 3 - Configure Your Firewall
 
 Make sure
 
@@ -76,7 +64,7 @@ Make sure
 
 
 
-### Step 5 - Start Using It
+### Step 4 - Start Using It
 
 To start using it, follow these steps:
 
@@ -128,7 +116,7 @@ Make sure you actually mount the server volume (see Step 5) before trying to fin
 
 ### My container restarted and I can't login
 
-The user accounts are ephemeral and you'll have to run `Step 2` again to re-create the accounts.
+The user accounts are ephemeral and you'll have to run `Step 1` again to re-create the accounts.
 Alternativey, you can script the account creation and upload a custom entrypoint with the details:
 
 ```bash
