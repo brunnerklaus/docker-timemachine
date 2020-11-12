@@ -23,13 +23,13 @@ and add user and password
 To add a user, run:
 
 ```
-$ docker exec docker-timemachine add-account USERNAME PASSWORD VOL_NAME VOL_ROOT [VOL_SIZE_MB]
+$ docker exec timemachine add-account USERNAME PASSWORD VOL_NAME VOL_ROOT [VOL_SIZE_MB]
 ```
 
 Or, if you want to add a user with a specific UID/GID, use the following format
 
 ```
-$ docker exec docker-timemachine add-account -i 1000 -g 1000 USERNAME PASSWORD VOL_NAME VOL_ROOT [VOL_SIZE_MB]
+$ docker exec timemachine add-account -i 1000 -g 1000 USERNAME PASSWORD VOL_NAME VOL_ROOT [VOL_SIZE_MB]
 ```
 
 But take care that:
