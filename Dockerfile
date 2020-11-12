@@ -79,11 +79,15 @@ ADD entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 ADD start_netatalk.sh /start_netatalk.sh
 ADD bin/add-account /usr/bin/add-account
+ADD bin/docker-healthcheck.sh /usr/bin/docker-healthcheck.sh
+RUN chmod +x /usr/bin/docker-healthcheck.sh
 ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 ADD afp.conf /etc/afp.conf
 
 EXPOSE 548 636
 
 VOLUME ["/timemachine"]
+
+HEALTHCHECK CMD ["/usr/bin/docker-healthcheck.sh"]
 
 CMD ["/entrypoint.sh"]
