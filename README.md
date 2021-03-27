@@ -16,6 +16,14 @@ and add user and password
     $ docker-compose up -d
     ```
 
+- Created a external named volume to store the data
+    ```
+    docker volume create --driver local \
+        --opt type=none \
+        --opt device=/mnt/t5/timemachine_data \
+        --opt o=bind timemachine_data
+    ```
+
 ## Optional
 
 ### Step 1 - Add a User

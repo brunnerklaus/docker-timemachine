@@ -1,7 +1,8 @@
 version: "3.7"
 
 volumes:
-  timemachine_data: {}
+  timemachine_data:
+    external: true
 
 services:
   timemachine:
