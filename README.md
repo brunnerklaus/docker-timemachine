@@ -19,9 +19,9 @@ and add user and password
 - Created a external named volume to store the data
     ```
     docker volume create --driver local \
-        --opt type=none \
-        --opt device=/mnt/t5/timemachine_data \
-        --opt o=bind timemachine_data
+        --opt type=btfrs --opt  \
+        device=/dev/sda1  \
+        timemachine_data
     ```
 
 ## Optional
