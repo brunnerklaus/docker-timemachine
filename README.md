@@ -10,18 +10,16 @@ If you want to use this on an ARM-Device (like the Raspberry Pi) create .env fil
     ```
 and add user and password
 
+
+- Create a directory for the timemachine data or mount point
+    ```
+    mkdir /mnt/t5/timemachine
+    ```
+
 - Build the image directly on your device:
     ```
     $ docker-compose build .
     $ docker-compose up -d
-    ```
-
-- Created a external named volume to store the data
-    ```
-    docker volume create --driver local \
-        --opt type=btfrs --opt  \
-        device=/dev/sda1  \
-        timemachine_data
     ```
 
 ## Optional

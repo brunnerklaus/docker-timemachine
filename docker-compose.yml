@@ -1,9 +1,5 @@
 version: "3.7"
 
-volumes:
-  timemachine_data:
-    external: true
-
 services:
   timemachine:
     build:
@@ -22,5 +18,7 @@ services:
       PUID: ${PUID:-1000}
       PGID: ${PGID:-1000}
     volumes:
-       - timemachine_data:/timemachine
+       - type: bind
+        source: /mnt/t5/timemachine
+        target: /timemachine
     restart: unless-stopped
